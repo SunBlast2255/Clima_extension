@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css"/>
+    <title>Climater</title>
+</head>
+<body>
+    <header>
+        <div class="header-item">
+            <img draggable="false" class="logo-img" src="../img/UI/logo.png">
+            <span class="logo-text">Climater</span>
+        </div>
+
+        <div class="header-item">
+            <img draggable="false" class="icon-small" src="../img/UI/settings.png" title="Settings">
+        </div>
+    </header>
+
+        <main>
+            <div class="main-info">
+                <div class="flex center" style="gap:5px;">
+                    <img draggable="false" class="icon-big" src="../img/weather/sun.png">
+                    <div class="flex column bold mid">
+                        <span class="city" id="city">City</span>
+                        <span class="country" id="country">Country</span>
+                    </div>
+                </div>
+
+                <div class="flex column center">
+                    <span class="bold large" id="temp">+25°</span>
+                    <span class="small"><span id="max">+30°</span>/<span id="min">+15°</span>, feels like <span>+20°</span> </span>
+                </div>
+
+                <div class="flex center column">
+                    <span class="mid bold">Wind:</span>
+                    <span class="big bold"><span id="speed">5km/h</span>, <span id="dir">SW</span></span> 
+                </div>
+            </div>
+
+            <div class="forecast-block">
+                <!--Forecast will appear here-->   
+            </div>
+
+            <div class="adv-info">
+                <div class="small-block">
+                    <span class="big" id="humidity">35%</span>
+                    <span>Humidity</span>
+                </div>
+                <div class="small-block">
+                    <span class="big" id="pressure">1000mb</span>
+                    <span>Pressure</span>
+                </div>
+                <div class="small-block">
+                    <span class="big" id="rainfall">35%</span>
+                    <span>Rainfall</span>
+                </div>
+                <div class="small-block">
+                    <span class="big" id="time">12:00</span>
+                    <span>Time</span>
+                </div>
+            </div>
+        </main>
+
+        <div class="modal" id="settings-modal">
+            <div class="modal-header">
+                <div class="header-item">
+                    <img draggable="false" class="logo-img" src="../img/UI/logo.png">
+                    <span class="logo-text">Climater</span>
+                </div>
+            </div>
+
+            <div class="modal-main">
+                <div style="margin-top: 15px;">
+                    <h1 class="bold">Settings</h1>
+                </div>
+
+                <div class="flex center column" style="gap: 10px;">
+                    <div class="flex center">
+                        <span class="mid bold">City:</span>
+                        <input type="text" id="city">
+                    </div>
+                    <div class="flex center">
+                        <span class="mid bold">Unit:</span>
+                        <select id="unit">
+                            <option>Metric</option>
+                            <option>Imperial</option>
+                        </select>
+                    </div>
+                    <div class="flex center">
+                        <span class="mid bold">Time:</span>
+                        <select id="time">
+                            <option>24-hour</option>
+                            <option>12-hour</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <button>Apply</button>
+                </div>
+
+                <div class="about">
+                    <span>Climater v1.0</span>
+                    <span>www.climater.com</span>
+                    <span>Powered by weatherapi.com</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="setup-modal">
+            <div class="modal-header">
+                <div class="header-item">
+                    <img draggable="false" class="logo-img" src="../img/UI/logo.png">
+                    <span class="logo-text">Climater</span>
+                </div>
+            </div>
+
+            <div class="center modal-main">
+                
+                <div class="flex center column" style="gap: 5px; margin-top: 15px;">
+                    <h1 class="bold">Welcome!</h1>
+                    <h2>Let's customize your extension!</h2>
+                </div>
+
+                <div class="flex center column" style="gap: 10px;">
+                    <div class="flex center">
+                        <span class="mid bold">City:</span>
+                        <input type="text" id="city-setup">
+                    </div>
+                    <div class="flex center">
+                        <span class="mid bold">Unit:</span>
+                        <select id="unit-setup">
+                            <option>Metric</option>
+                            <option>Imperial</option>
+                        </select>
+                    </div>
+                    <div class="flex center">
+                        <span class="mid bold">Time:</span>
+                        <select id="time-setup">
+                            <option>24-hour</option>
+                            <option>12-hour</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <button>Done!</button>
+                </div>
+            </div>
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

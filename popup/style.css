@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    
+    width: 535px;
+    height: 400px;
+}
+
+header, .modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 535px;
+    height: 10%;
+
+    background-color: #5E4B8A;
+}
+
+.header-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap:5px;
+    margin: 5px;
+}
+
+
+main, .modal-main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    width: 535px;
+    height: 90%;
+    gap:10px;
+
+    background-color: #333333;
+}
+.flex{
+    display: flex;
+}
+
+.column{
+    flex-direction: column;
+}
+
+.center{
+    align-items: center;
+    justify-content: center;
+}
+
+img{
+    user-select: none;
+}
+
+.logo-img{
+    width: 32px;
+    height: 18px;
+}
+
+.icon-small{
+    width: 24px;
+    height: 24px;
+
+    cursor: pointer;
+}
+
+.icon-big{
+    width: 90px;
+    height: 90px;
+}
+
+.logo-text{
+    font-weight: bold;
+    font-size: 24px;
+
+    user-select: none;
+}
+
+a, span, p, h1, h2, h3, h4, h5, h6{
+    color: #FFFFFF;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.large{
+    font-size: 36px;
+}
+
+.big{
+    font-size: 24px;
+}
+
+.mid{
+    font-size: 20px;
+}
+
+.small{
+    font-size: 16px;
+}
+
+.main-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 535px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.adv-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 500px;
+}
+
+.forecast-block{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 500px;
+    height: 100px;
+
+    background-color: #5E4B8A;
+    color: #FFFFFF;
+
+    border-radius: 5px;
+    gap:5px;
+}
+
+.small-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #5E4B8A;
+    color: #FFFFFF;
+    font-weight: bold;
+
+    border-radius: 5px;
+
+    width: 100px;
+    height: 100px;
+}
+
+.modal{
+    width: 535px;
+    height: 400px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: none;
+}
+
+input[type="text"], select{
+    width: 100px;
+}
+
+button{
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #5E4B8A;
+
+    width: 75px;
+    height: 32px;
+
+    border: 0;
+    cursor: pointer;
+}
+
+.about{
+    position: absolute;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
