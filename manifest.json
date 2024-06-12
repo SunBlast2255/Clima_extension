@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "Climater",
+    "description": "Weather forecast right in the browser extension",
+    "version": "1.0",
+    "action": {
+      "default_popup": "popup/popup.html"
+    },
+    "permissions": [
+        "storage"
+    ]
+  }
