@@ -70,8 +70,6 @@ img{
 .icon-small{
     width: 24px;
     height: 24px;
-
-    cursor: pointer;
 }
 
 .icon-big{
@@ -174,6 +172,10 @@ input[type="text"], select{
     width: 100px;
 }
 
+button, select, a, .icon-small{
+    cursor: pointer;
+}
+
 button{
     font-weight: bold;
     color: #FFFFFF;
@@ -183,7 +185,6 @@ button{
     height: 32px;
 
     border: 0;
-    cursor: pointer;
 }
 
 .about{

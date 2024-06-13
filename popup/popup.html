@@ -13,7 +13,7 @@
         </div>
 
         <div class="header-item">
-            <img draggable="false" class="icon-small" src="../img/UI/settings.png" title="Settings">
+            <img draggable="false" class="icon-small" src="../img/UI/settings.png" title="Settings" id="settings">
         </div>
     </header>
 
@@ -78,7 +78,7 @@
                 <div class="flex center column" style="gap: 10px;">
                     <div class="flex center">
                         <span class="mid bold">City:</span>
-                        <input type="text" id="city">
+                        <input type="text" id="cityInput">
                     </div>
                     <div class="flex center">
                         <span class="mid bold">Unit:</span>
@@ -97,7 +97,7 @@
                 </div>
 
                 <div>
-                    <button>Apply</button>
+                    <button id="apply">Apply</button>
                 </div>
 
                 <div class="about">
@@ -133,6 +133,7 @@
                         <select id="unit-setup">
                             <option>Metric</option>
                             <option>Imperial</option>
+                            <option value="US">US Customary</option>
                         </select>
                     </div>
                     <div class="flex center">
@@ -145,7 +146,7 @@
                 </div>
 
                 <div>
-                    <button>Done!</button>
+                    <button id="done">Done!</button>
                 </div>
             </div>
         </div>
