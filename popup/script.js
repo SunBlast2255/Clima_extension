@@ -95,7 +95,7 @@ function getWeather(){
 
             const key = "b91ec524df5747a3bed133352240605";
             const url = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`;
-            const urlForecast = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=1&aqi=no&alerts=no`;
+            const urlForecast = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=2&aqi=no&alerts=no`;
 
             fetch(url).then(function(response){
                 return response.json();
@@ -135,6 +135,7 @@ function getWeather(){
                     minF = Math.floor(data.forecast.forecastday[0].day.mintemp_f);
                     maxF = Math.floor(data.forecast.forecastday[0].day.maxtemp_f);
                     displayWeather();
+                    displayForecast(data);
                 }).catch(function(err){
                     console.log("Error getting forecast: " + err.message);
                 });
@@ -181,6 +182,81 @@ function displayWeather(){
     }
 
     document.getElementById("condition").src = getConditionIcon(condition);
+}
+
+function displayForecast(data){
+
+    let forecastBlock = document.getElementById("forecastBlock");
+    const currentTimeStr = data.location.localtime;
+    const currentTime = new Date(currentTimeStr);
+    const forecastDays = data.forecast.forecastday;
+
+    for (let i = 0; i < forecastDays.length; i++) {
+        const forecastDay = forecastDays[i];
+        const forecastHours = forecastDay.hour;
+      
+        for (let j = 0; j < forecastHours.length; j++) {
+          const forecastHour = forecastHours[j];
+          const forecastTimeStr = forecastHour.time;
+          const forecastTime = parseTime(forecastTimeStr);
+      
+          if (forecastTime > currentTime && forecastTime <= new Date(currentTime.getTime() + 24 * 60 * 60 * 1000)) {
+            
+            let element = document.createElement("div");
+            element.setAttribute('class', 'flex center column');
+            element.style.gap = '7px';
+
+            let timeSpan = document.createElement("span");
+            let content;
+
+            if (format == "24-hour") {
+                let [date, time] = forecastTimeStr.split(' ');
+                let [hour, minute] = time.split(':');
+                content = `${hour}:${minute}`;
+            } else if (format == "12-hour") {
+                let [date, time] = forecastTimeStr.split(' ');
+                content = convertTime(time);
+            }
+
+            timeSpan.innerHTML = content;
+            timeSpan.setAttribute('class', 'bold');
+            timeSpan.style = "white-space: nowrap;"
+            element.appendChild(timeSpan);
+
+            let icon = document.createElement("img");
+            icon.style.width = '30px';
+            icon.style.height = '30px';
+            icon.draggable = false;
+            icon.src = getConditionIcon(forecastHour.condition.text.trim());
+            element.appendChild(icon);
+            let tempSpan = document.createElement("span");
+            let rainfall = document.createElement("span");
+            rainfall.style = "white-space: nowrap;"
+
+            if(unit == "Metric"){
+                tempSpan.innerHTML = `${Math.floor(forecastHour.temp_c)}°C`;
+                element.appendChild(tempSpan);
+                rainfall.innerHTML = `${parseFloat(forecastHour.precip_mm).toFixed(1).replace(/\.0$/, '')} mm`;
+                element.appendChild(rainfall);
+            }else if(unit = "Imperial"){
+                tempSpan.innerHTML = `${Math.floor(forecastHour.temp_f)}°F`;
+                element.appendChild(tempSpan);
+                rainfall.innerHTML = `${parseFloat(forecastHour.precip_in).toFixed(1).replace(/\.0$/, '')} in`;
+                element.appendChild(rainfall);
+            }
+
+            forecastBlock.appendChild(element);
+
+          }
+        }
+      }
+}
+
+function parseTime(timeStr) {
+    const [dateStr, time] = timeStr.split(' ');
+    const [year, month, day] = dateStr.split('-');
+    const [hours, minutes] = time.split(':');
+    return new Date(year, month - 1, day, hours, minutes);
 }
 
 function applySettings(city, unit, format){
@@ -260,4 +336,3 @@ document.getElementById("apply").addEventListener("click", function() {
     let format = document.getElementById("time-format").value;
     applySettings(city, unit, format);
 });
-

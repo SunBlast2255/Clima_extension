@@ -10,7 +10,7 @@ body {
     font-style: normal;
     
     width: 535px;
-    height: 400px;
+    height: 430px;
 }
 
 header, .modal-header{
@@ -128,17 +128,18 @@ a, span, p, h1, h2, h3, h4, h5, h6{
 
 .forecast-block{
     display: flex;
-    align-items: center;
-    justify-content: center;
 
     width: 500px;
-    height: 100px;
+    height: 130px;
 
     background-color: #5E4B8A;
     color: #FFFFFF;
 
     border-radius: 5px;
-    gap:5px;
+    padding: 5px;
+    gap:10px;
+
+    overflow: auto;
 }
 
 .small-block{
@@ -200,3 +201,24 @@ button{
     font-weight: bold;
 }
 
+/*Scroll*/
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #5E4B8A #333333;
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #333333;
+}
+  
+*::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #5E4B8A;
+}
+
+body::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
