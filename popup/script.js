@@ -29,6 +29,61 @@ let maxC;
 let minF;
 let maxF;
 
+const conditionIconMap = {
+    "Sunny": "../img/weather/sun.png",
+    "Clear": "../img/weather/moon.png",
+    "Cloudy": "../img/weather/cloud.png",
+    "Partly cloudy": "../img/weather/overcast.png",
+    "Partly Cloudy": "../img/weather/overcast.png",
+    "Overcast": "../img/weather/overcast.png",
+    "Mist": "../img/weather/fog.png",
+    "Patchy rain nearby": "../img/weather/rain.png",
+    "Patchy rain possible": "../img/weather/rain.png",
+    "Patchy snow possible": "../img/weather/snow.png",
+    "Patchy sleet possible": "../img/weather/sleet.png",
+    "Patchy freezing drizzle possible": "../img/weather/rain.png",
+    "Thundery outbreaks possible": "../img/weather/thunder.png",
+    "Blowing snow": "../img/weather/wind.png",
+    "Blizzard": "../img/weather/blizzard.png",
+    "Fog": "../img/weather/fog.png",
+    "Freezing fog": "../img/weather/fog_freeze.png",
+    "Patchy light drizzle": "../img/weather/rain.png",
+    "Light drizzle": "../img/weather/rain.png",
+    "Freezing drizzle": "../img/weather/rain.png",
+    "Heavy freezing drizzle": "../img/weather/rain.png",
+    "Patchy light rain": "../img/weather/rain.png",
+    "Light rain": "../img/weather/rain.png",
+    "Moderate rain at times": "../img/weather/rain.png",
+    "Moderate rain": "../img/weather/rain.png",
+    "Heavy rain at times": "../img/weather/rain.png",
+    "Heavy rain": "../img/weather/rain.png",
+    "Light freezing rain": "../img/weather/rain.png",
+    "Moderate or heavy freezing rain": "../img/weather/rain.png",
+    "Light sleet": "../img/weather/sleet.png",
+    "Moderate or heavy sleet": "../img/weather/sleet.png",
+    "Patchy light snow": "../img/weather/snow.png",
+    "Light snow": "../img/weather/snow.png",
+    "Patchy moderate snow": "../img/weather/snow.png",
+    "Moderate snow": "../img/weather/snow.png",
+    "Patchy heavy snow": "../img/weather/snow.png",
+    "Heavy snow": "../img/weather/snow.png",
+    "Ice pellets": "../img/weather/pellets.png",
+    "Light rain shower": "../img/weather/rain.png",
+    "Moderate or heavy rain shower": "../img/weather/rain.png",
+    "Torrential rain shower": "../img/weather/rain.png",
+    "Light sleet showers": "../img/weather/sleet.png",
+    "Moderate or heavy sleet showers": "../img/weather/sleet.png",
+    "Light snow showers": "../img/weather/snow.png",
+    "Moderate or heavy snow showers": "../img/weather/snow.png",
+    "Light showers of ice pellets": "../img/weather/pellets.png",
+    "Moderate or heavy showers of ice pellets": "../img/weather/sleet.png",
+    "Patchy light rain with thunder": "../img/weather/storm.png",
+    "Moderate or heavy rain with thunder": "../img/weather/storm.png",
+    "Patchy light snow with thunder": "../img/weather/storm.png",
+    "Moderate or heavy snow with thunder": "../img/weather/storm.png",
+    "Thundery outbreaks in nearby": "../img/weather/thunder.png"
+};
+
 function getWeather(){
     chrome.storage.local.get(['city', 'unit', 'format'], function(result) {
         if(!result.city || !result.unit || !result.format) {
@@ -124,6 +179,8 @@ function displayWeather(){
         let [date, time12] = time.split(" ");
         document.getElementById("time").innerHTML = convertTime(time12);
     }
+
+    document.getElementById("condition").src = getConditionIcon(condition);
 }
 
 function applySettings(city, unit, format){
@@ -173,6 +230,10 @@ function convertTime(timeStr) {
     }
 
     return `${hours}:${minutes.toString().padStart(2, '0')} ${period}`;
+}
+
+function getConditionIcon(condition){
+    return conditionIconMap[condition];
 }
 
 window.onload = function() {
