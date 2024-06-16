@@ -45,4 +45,4 @@ Click on the gear in the upper right corner to open the settings.
 
 # Usage
 1)Set the desired parameters in the Initial Setup window. After the initial setup, you can change the parameters in the settings (see section Settings).
-2)Read additional weather information provided in the boxes below the forecast.
+2)Check out the weather forecast!
