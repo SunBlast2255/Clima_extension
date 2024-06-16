@@ -28,13 +28,13 @@
                 </div>
 
                 <div class="flex column center">
-                    <span class="bold large" id="temp">+25°</span>
-                    <span class="small"><span id="max">+30°</span>/<span id="min">+15°</span>, feels like <span>+20°</span> </span>
+                    <span class="bold large" id="temp">25°</span>
+                    <span class="small"><span id="max">30°</span>/<span id="min">15°</span>, feels like <span id="feels-like">20°</span> </span>
                 </div>
 
                 <div class="flex center column">
                     <span class="mid bold">Wind:</span>
-                    <span class="big bold"><span id="speed">5km/h</span>, <span id="dir">SW</span></span> 
+                    <span class="big bold"><span id="speed">5kph</span>, <span id="dir">SW</span></span> 
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                     <span>Humidity</span>
                 </div>
                 <div class="small-block">
-                    <span class="big" id="pressure">1000mb</span>
+                    <span class="mid" id="pressure">1000mb</span>
                     <span>Pressure</span>
                 </div>
                 <div class="small-block">
@@ -89,7 +89,7 @@
                     </div>
                     <div class="flex center">
                         <span class="mid bold">Time:</span>
-                        <select id="time">
+                        <select id="time-format">
                             <option>24-hour</option>
                             <option>12-hour</option>
                         </select>
@@ -138,7 +138,7 @@
                     </div>
                     <div class="flex center">
                         <span class="mid bold">Time:</span>
-                        <select id="time-setup">
+                        <select id="time-format-setup">
                             <option>24-hour</option>
                             <option>12-hour</option>
                         </select>
