@@ -175,10 +175,16 @@ function displayWeather(){
 
     if(format == "24-hour"){
         let [date, time24] = time.split(" ");
-        document.getElementById("time").innerHTML = time24;
+        let [hours, minutes] = time24.split(":");
+
+        if(hours < 10){
+            hours = "0" + hours;
+        }
+
+        document.getElementById("time").innerHTML = `${hours}:${minutes}`;
     }else if(format == "12-hour"){
-        let [date, time12] = time.split(" ");
-        document.getElementById("time").innerHTML = convertTime(time12);
+        let [date, time24] = time.split(" ");
+        document.getElementById("time").innerHTML = convertTime(time24);
     }
 
     document.getElementById("condition").src = getConditionIcon(condition);
@@ -212,6 +218,7 @@ function displayForecast(data){
             if (format == "24-hour") {
                 let [date, time] = forecastTimeStr.split(' ');
                 let [hour, minute] = time.split(':');
+                
                 content = `${hour}:${minute}`;
             } else if (format == "12-hour") {
                 let [date, time] = forecastTimeStr.split(' ');
@@ -303,6 +310,10 @@ function convertTime(timeStr) {
         hours = 12;
     } else if (hours > 12) {
         hours = hours - 12;
+    }
+
+    if(hours < 10){
+        hours = '0' + hours;
     }
 
     return `${hours}:${minutes.toString().padStart(2, '0')} ${period}`;
