@@ -193,6 +193,7 @@ function displayWeather(){
 function displayForecast(data){
 
     let forecastBlock = document.getElementById("forecastBlock");
+    forecastBlock.innerHTML = "";
     const currentTimeStr = data.location.localtime;
     const currentTime = new Date(currentTimeStr);
     const forecastDays = data.forecast.forecastday;
