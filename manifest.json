@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Climater",
+    "name": "Clima",
     "description": "Weather forecast right in the browser extension",
     "version": "1.0",
     "action": {
