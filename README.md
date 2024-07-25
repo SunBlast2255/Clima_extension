@@ -1,6 +1,7 @@
 # What is clima?
 
 Clima is an extension for Google Chrome or Opera browser that provides users with up-to-date weather information. Thanks to its convenient settings and intuitive interface, you will always be aware of current and upcoming weather conditions in the cities of your choice.
+
 ![Main](img/Screenshots/Main.png)![Settings](img/Screenshots/Settings.png)
 # Main features
 
