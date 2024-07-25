@@ -46,3 +46,5 @@ Click on the gear in the upper right corner to open the settings.
 # Usage
 1)Set the desired parameters in the Initial Setup window. After the initial setup, you can change the parameters in the settings (see section Settings).
 2)Check out the weather forecast!
+
+P.S The weather forecast is supposed to be 7 days ahead, but I don't have the money to renew my WeatherAPI subscription, so the weather forecast is 3 days ahead
