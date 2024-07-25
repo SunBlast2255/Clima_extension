@@ -93,6 +93,8 @@ function getWeather(){
             unit = result.unit;
             format = result.format;
 
+            //I have a free plan on weatherAPI anyway, so hiding this key makes no sense to me :)
+
             const key = "b91ec524df5747a3bed133352240605";
             const url = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`;
             const urlForecast = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=2&aqi=no&alerts=no`;
@@ -348,3 +350,5 @@ document.getElementById("apply").addEventListener("click", function() {
     let format = document.getElementById("time-format").value;
     applySettings(city, unit, format);
 });
+
+//NOTE: Yeah, yeah, I know my code could be shorter, but I'll fix it, I guess.
