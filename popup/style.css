@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
 }
 
 body {
@@ -9,7 +10,7 @@ body {
     font-weight: 400;
     font-style: normal;
     
-    width: 535px;
+    width: 575px;
     height: 430px;
 }
 
@@ -18,7 +19,7 @@ header, .modal-header{
     justify-content: space-between;
     align-items: center;
 
-    width: 535px;
+    width: 575px;
     height: 10%;
 
     background-color: #5E4B8A;
@@ -39,7 +40,7 @@ main, .modal-main{
     align-items: center;
     flex-direction: column;
 
-    width: 535px;
+    width: 575px;
     height: 90%;
     gap:10px;
 
@@ -113,7 +114,7 @@ a, span, p, h1, h2, h3, h4, h5, h6{
     align-items: center;
     justify-content: space-between;
 
-    width: 535px;
+    width: 575px;
     padding: 10px;
     margin-top: 15px;
 }
@@ -123,13 +124,13 @@ a, span, p, h1, h2, h3, h4, h5, h6{
     align-items: center;
     justify-content: space-between;
 
-    width: 500px;
+    width: 530px;
 }
 
 .forecast-block{
     display: flex;
 
-    width: 500px;
+    width: 530px;
     height: 130px;
 
     background-color: #5E4B8A;
