@@ -36,6 +36,10 @@ body{
     justify-content: center;
 }
 
+.space-between{
+    justify-content: space-between;
+}
+
 .column{
     flex-direction: column;
 }
@@ -59,5 +63,12 @@ span{
 
 .address{
     width: fit-content;
+    margin-top: 5px;
     font-size: 15px;
+}
+
+.panel{
+    background-color: #5E4B8A;
+    border-radius: 20px;
+    padding: 15px;
 }
