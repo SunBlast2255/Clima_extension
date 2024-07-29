@@ -337,6 +337,10 @@ document.getElementById("settings").addEventListener("click", function() {
     document.getElementById("time-format").value = format;
 });
 
+document.getElementById("donate").addEventListener("click", function() {
+    chrome.tabs.create({ url: '../tabs/donate.html' });
+});
+
 document.getElementById("done").addEventListener("click", function() {
     let city = document.getElementById("city-setup").value;
     let unit = document.getElementById("unit-setup").value;

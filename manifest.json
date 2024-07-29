@@ -7,7 +7,8 @@
       "default_popup": "popup/popup.html"
     },
     "permissions": [
-        "storage"
+        "storage",
+        "tabs"
     ],
     "icons": {
       "16": "img/icons/16.png",
