@@ -177,13 +177,7 @@ function displayWeather(){
 
     if(format == "24-hour"){
         let [date, time24] = time.split(" ");
-        let [hours, minutes] = time24.split(":");
-
-        if(hours < 10){
-            hours = "0" + hours;
-        }
-
-        document.getElementById("time").innerHTML = `${hours}:${minutes}`;
+        document.getElementById("time").innerHTML = time24;
     }else if(format == "12-hour"){
         let [date, time24] = time.split(" ");
         document.getElementById("time").innerHTML = convertTime(time24);
