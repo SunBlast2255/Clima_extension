@@ -243,17 +243,17 @@ button{
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: #5E4B8A #333333;
+    scrollbar-color: #333333 #5E4B8A;
 }
 
 *::-webkit-scrollbar-track {
     border-radius: 5px;
-    background-color: #333333;
+    background-color: #5E4B8A;
 }
   
 *::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: #5E4B8A;
+    background-color: #333333;
 }
 
 body::-webkit-scrollbar-button {

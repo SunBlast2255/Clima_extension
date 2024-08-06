@@ -390,4 +390,8 @@ document.getElementById("apply").addEventListener("click", function() {
     applySettings(city, unit, format);
 });
 
+window.oncontextmenu = function (){
+    return false;
+}
+
 //NOTE: Yeah, yeah, I know my code could be shorter, but I"ll fix it, I guess.
