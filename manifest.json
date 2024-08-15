@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Clima",
     "description": "Weather forecast right in the browser extension",
-    "version": "1.2",
+    "version": "1.4",
     "action": {
       "default_popup": "popup/popup.html"
     },

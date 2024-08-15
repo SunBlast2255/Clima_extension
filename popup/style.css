@@ -11,7 +11,7 @@ body {
     font-style: normal;
     
     width: 575px;
-    height: 430px;
+    height: 470px;
 }
 
 header, .modal-header{
@@ -46,8 +46,13 @@ main, .modal-main{
 
     background-color: #333333;
 }
+
 .flex{
     display: flex;
+}
+
+.space-between{
+    justify-content: space-between;
 }
 
 .column{
@@ -71,6 +76,11 @@ img{
 .icon-small{
     width: 24px;
     height: 24px;
+}
+
+.icon-mid{
+    width: 64px;
+    height: 64px;
 }
 
 .icon-big{
@@ -143,6 +153,33 @@ a, span, p, h1, h2, h3, h4, h5, h6{
     overflow: auto;
 }
 
+.astro{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+
+    width:530px;
+}
+
+.astro-block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width:50%;
+    height: 75px;
+
+    background-color: #5E4B8A;
+    color: #FFFFFF;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .small-block{
     display: flex;
     flex-direction: column;
@@ -156,12 +193,12 @@ a, span, p, h1, h2, h3, h4, h5, h6{
     border-radius: 5px;
 
     width: 100px;
-    height: 100px;
+    height: 55px;
 }
 
 .modal{
     width: 535px;
-    height: 430px;
+    height: 470px;
 
     position: absolute;
     top: 0;
@@ -206,17 +243,17 @@ button{
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: #5E4B8A #333333;
+    scrollbar-color: #333333 #5E4B8A;
 }
 
 *::-webkit-scrollbar-track {
     border-radius: 5px;
-    background-color: #333333;
+    background-color: #5E4B8A;
 }
   
 *::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: #5E4B8A;
+    background-color: #333333;
 }
 
 body::-webkit-scrollbar-button {

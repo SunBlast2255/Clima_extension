@@ -29,6 +29,11 @@ let maxC;
 let minF;
 let maxF;
 
+let sunrise;
+let sunset;
+let moonrise;
+let moonset;
+
 const conditionIconMap = {
     "Sunny": "../img/weather/sun.png",
     "Clear": "../img/weather/moon.png",
@@ -85,7 +90,7 @@ const conditionIconMap = {
 };
 
 function getWeather(){
-    chrome.storage.local.get(['city', 'unit', 'format'], function(result) {
+    chrome.storage.local.get(["city", "unit", "format"], function(result) {
         if(!result.city || !result.unit || !result.format) {
             document.getElementById("setup-modal").style.display = "block";
         }else{
@@ -116,11 +121,11 @@ function getWeather(){
 
                 //If there is a 0 after the point, cut it off with replace
 
-                pressureMb = parseFloat(data.current.pressure_mb).toFixed(1).replace(/\.0$/, '');
-                pressureIn = parseFloat(data.current.pressure_in).toFixed(1).replace(/\.0$/, '');
+                pressureMb = parseFloat(data.current.pressure_mb).toFixed(1).replace(/\.0$/, "");
+                pressureIn = parseFloat(data.current.pressure_in).toFixed(1).replace(/\.0$/, "");
 
-                rainFallMM = parseFloat(data.current.precip_mm).toFixed(1).replace(/\.0$/, '');
-                rainFallIn = parseFloat(data.current.precip_in).toFixed(1).replace(/\.0$/, '');
+                rainFallMM = parseFloat(data.current.precip_mm).toFixed(1).replace(/\.0$/, "");
+                rainFallIn = parseFloat(data.current.precip_in).toFixed(1).replace(/\.0$/, "");
 
                 time = data.location.localtime;
 
@@ -136,6 +141,12 @@ function getWeather(){
                     maxC = Math.floor(data.forecast.forecastday[0].day.maxtemp_c);
                     minF = Math.floor(data.forecast.forecastday[0].day.mintemp_f);
                     maxF = Math.floor(data.forecast.forecastday[0].day.maxtemp_f);
+
+                    sunrise = data.forecast.forecastday[0].astro.sunrise;
+                    sunset = data.forecast.forecastday[0].astro.sunset;
+                    moonrise = data.forecast.forecastday[0].astro.moonrise;
+                    moonset = data.forecast.forecastday[0].astro.moonset;
+
                     displayWeather();
                     displayForecast(data);
                 }).catch(function(err){
@@ -177,16 +188,20 @@ function displayWeather(){
 
     if(format == "24-hour"){
         let [date, time24] = time.split(" ");
-        let [hours, minutes] = time24.split(":");
+        document.getElementById("time").innerHTML = time24;
 
-        if(hours < 10){
-            hours = "0" + hours;
-        }
-
-        document.getElementById("time").innerHTML = `${hours}:${minutes}`;
+        document.getElementById("sunrise").innerHTML = convertTo24H(sunrise);
+        document.getElementById("sunset").innerHTML = convertTo24H(sunset);
+        document.getElementById("moonrise").innerHTML = convertTo24H(moonrise);
+        document.getElementById("moonset").innerHTML = convertTo24H(moonset);
     }else if(format == "12-hour"){
         let [date, time24] = time.split(" ");
-        document.getElementById("time").innerHTML = convertTime(time24);
+        document.getElementById("time").innerHTML = convertTo12H(time24);
+
+        document.getElementById("sunrise").innerHTML = sunrise;
+        document.getElementById("sunset").innerHTML = sunset;
+        document.getElementById("moonrise").innerHTML = moonrise;
+        document.getElementById("moonset").innerHTML = moonset;
     }
 
     document.getElementById("condition").src = getConditionIcon(condition);
@@ -212,30 +227,30 @@ function displayForecast(data){
           if (forecastTime > currentTime && forecastTime <= new Date(currentTime.getTime() + 24 * 60 * 60 * 1000)) {
             
             let element = document.createElement("div");
-            element.setAttribute('class', 'flex center column');
-            element.style.gap = '7px';
+            element.setAttribute("class", "flex center column");
+            element.style.gap = "7px";
 
             let timeSpan = document.createElement("span");
             let content;
 
             if (format == "24-hour") {
-                let [date, time] = forecastTimeStr.split(' ');
-                let [hour, minute] = time.split(':');
+                let [date, time] = forecastTimeStr.split(" ");
+                let [hour, minute] = time.split(":");
                 
                 content = `${hour}:${minute}`;
             } else if (format == "12-hour") {
-                let [date, time] = forecastTimeStr.split(' ');
-                content = convertTime(time);
+                let [date, time] = forecastTimeStr.split(" ");
+                content = convertTo12H(time);
             }
 
             timeSpan.innerHTML = content;
-            timeSpan.setAttribute('class', 'bold');
+            timeSpan.setAttribute("class", "bold");
             timeSpan.style = "white-space: nowrap;"
             element.appendChild(timeSpan);
 
             let icon = document.createElement("img");
-            icon.style.width = '30px';
-            icon.style.height = '30px';
+            icon.style.width = "30px";
+            icon.style.height = "30px";
             icon.draggable = false;
             icon.src = getConditionIcon(forecastHour.condition.text.trim());
             element.appendChild(icon);
@@ -246,12 +261,12 @@ function displayForecast(data){
             if(unit == "Metric"){
                 tempSpan.innerHTML = `${Math.floor(forecastHour.temp_c)}°C`;
                 element.appendChild(tempSpan);
-                rainfall.innerHTML = `${parseFloat(forecastHour.precip_mm).toFixed(1).replace(/\.0$/, '')} mm`;
+                rainfall.innerHTML = `${parseFloat(forecastHour.precip_mm).toFixed(1).replace(/\.0$/, "")} mm`;
                 element.appendChild(rainfall);
             }else if(unit = "Imperial"){
                 tempSpan.innerHTML = `${Math.floor(forecastHour.temp_f)}°F`;
                 element.appendChild(tempSpan);
-                rainfall.innerHTML = `${parseFloat(forecastHour.precip_in).toFixed(1).replace(/\.0$/, '')} in`;
+                rainfall.innerHTML = `${parseFloat(forecastHour.precip_in).toFixed(1).replace(/\.0$/, "")} in`;
                 element.appendChild(rainfall);
             }
 
@@ -263,14 +278,14 @@ function displayForecast(data){
 }
 
 function parseTime(timeStr) {
-    const [dateStr, time] = timeStr.split(' ');
-    const [year, month, day] = dateStr.split('-');
-    const [hours, minutes] = time.split(':');
+    const [dateStr, time] = timeStr.split(" ");
+    const [year, month, day] = dateStr.split("-");
+    const [hours, minutes] = time.split(":");
     return new Date(year, month - 1, day, hours, minutes);
 }
 
 function applySettings(city, unit, format){
-    chrome.storage.local.set({'city': city, 'unit': unit, 'format': format}, function() {
+    chrome.storage.local.set({"city": city, "unit": unit, "format": format}, function() {
         document.getElementById("setup-modal").style.display = "none";
         document.getElementById("settings-modal").style.display = "none";
         getWeather();
@@ -279,47 +294,67 @@ function applySettings(city, unit, format){
 
 function getWindDirection(degree){
     if (degree >= 337.5 || degree < 22.5) {
-        return 'N';
+        return "N";
     } else if (degree >= 22.5 && degree < 67.5) {
-        return 'NE';
+        return "NE";
     } else if (degree >= 67.5 && degree < 112.5) {
-        return 'E';
+        return "E";
     } else if (degree >= 112.5 && degree < 157.5) {
-        return 'SE';
+        return "SE";
     } else if (degree >= 157.5 && degree < 202.5) {
-        return 'S';
+        return "S";
     } else if (degree >= 202.5 && degree < 247.5) {
-        return 'SW';
+        return "SW";
     } else if (degree >= 247.5 && degree < 292.5) {
-        return 'W';
+        return "W";
     } else if (degree >= 292.5 && degree < 337.5) {
-        return 'NW';
+        return "NW";
     }
 }
 
-function convertTime(timeStr) {
-    let splitTime = timeStr.split(':');
+function convertTo24H(timeStr){
+    let [time, period] = timeStr.split(" ");
+    let [hours, minutes] = time.split(":")
+
+    hours = parseInt(hours);
+
+    if(period == "PM" && hours != 12){
+        hours += 12;
+    }else if(period  == "AM" && hours == 12){
+        hours = 12;
+    }
+
+    if(hours < 10){
+        hours = "0" + hours;
+    }
+
+    return `${hours}:${minutes}`
+
+}
+
+function convertTo12H(timeStr) {
+    let splitTime = timeStr.split(":");
     let hours = parseInt(splitTime[0], 10);
     let minutes = parseInt(splitTime[1], 10);
     let period;
 
     if (hours < 12) {
-        period = 'AM';
+        period = "AM";
     } else {
-        period = 'PM';
+        period = "PM";
     }
 
     if (hours === 0) {
         hours = 12;
     } else if (hours > 12) {
         hours = hours - 12;
-    }
+    } 
 
     if(hours < 10){
-        hours = '0' + hours;
+        hours = "0" + hours;
     }
 
-    return `${hours}:${minutes.toString().padStart(2, '0')} ${period}`;
+    return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
 }
 
 function getConditionIcon(condition){
@@ -338,7 +373,7 @@ document.getElementById("settings").addEventListener("click", function() {
 });
 
 document.getElementById("donate").addEventListener("click", function() {
-    chrome.tabs.create({ url: '../tabs/donate.html' });
+    chrome.tabs.create({ url: "../tabs/donate.html" });
 });
 
 document.getElementById("done").addEventListener("click", function() {
@@ -355,4 +390,8 @@ document.getElementById("apply").addEventListener("click", function() {
     applySettings(city, unit, format);
 });
 
-//NOTE: Yeah, yeah, I know my code could be shorter, but I'll fix it, I guess.
+window.oncontextmenu = function (){
+    return false;
+}
+
+//NOTE: Yeah, yeah, I know my code could be shorter, but I"ll fix it, I guess.

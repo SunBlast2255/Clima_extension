@@ -37,6 +37,7 @@ Click on the gear in the upper right corner to open the settings.
 - Humidity.
 - Precipitation.
 - Pressure.
+- Sunrise, sunset, moonrise, moonset.
 
 # Installation
 
