@@ -5,7 +5,6 @@ Clima is an extension for Google Chrome or Opera browser that provides users wit
 > [!CAUTION]
 > The extension is still under development and may contain bugs.
 
-![Main](img/Screenshots/Main.png)![Settings](img/Screenshots/Settings.png)
 # Main features
 
 ### Settings:
