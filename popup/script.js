@@ -98,8 +98,6 @@ function getWeather(){
             unit = result.unit;
             format = result.format;
 
-            //I have a free plan on weatherAPI anyway, so hiding this key makes no sense to me :)
-
             const key = "b91ec524df5747a3bed133352240605";
             const url = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`;
             const urlForecast = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=2&aqi=no&alerts=no`;
@@ -118,8 +116,6 @@ function getWeather(){
                 windDir = data.current.wind_degree;
 
                 humidity = data.current.humidity;
-
-                //If there is a 0 after the point, cut it off with replace
 
                 pressureMb = parseFloat(data.current.pressure_mb).toFixed(1).replace(/\.0$/, "");
                 pressureIn = parseFloat(data.current.pressure_in).toFixed(1).replace(/\.0$/, "");
@@ -147,8 +143,117 @@ function getWeather(){
                     moonrise = data.forecast.forecastday[0].astro.moonrise;
                     moonset = data.forecast.forecastday[0].astro.moonset;
 
-                    displayWeather();
-                    displayForecast(data);
+                    document.getElementById("city").innerHTML = city;
+                    document.getElementById("country").innerHTML = country;
+                
+                    if(unit == "Metric"){
+                        document.getElementById("temp").innerHTML = tempC + "°C";
+                        document.getElementById("feels-like").innerHTML = feelsLikeC + "°";
+                        document.getElementById("min").innerHTML = minC + "°";
+                        document.getElementById("max").innerHTML = maxC + "°";
+                        document.getElementById("speed").innerHTML = windSpdK + " kph";
+                        document.getElementById("pressure").innerHTML = pressureMb + " mb";
+                        document.getElementById("rainfall").innerHTML = rainFallMM + " mm";
+                    }else if(unit == "Imperial"){
+                        document.getElementById("temp").innerHTML = tempF + "°F";
+                        document.getElementById("feels-like").innerHTML = feelsLikeF + "°";
+                        document.getElementById("min").innerHTML = minF + "°";
+                        document.getElementById("max").innerHTML = maxF + "°";
+                        document.getElementById("speed").innerHTML = windSpdM + " mph";
+                        document.getElementById("pressure").innerHTML = pressureIn + " inHg";
+                        document.getElementById("rainfall").innerHTML = rainFallIn + " in";
+                    }
+                
+                    document.getElementById("dir").innerHTML = getWindDirection(windDir);
+                    document.getElementById("humidity").innerHTML = humidity + "%";
+                
+                    if(format == "24-hour"){
+                        let [date, time24] = time.split(" ");
+                        document.getElementById("time").innerHTML = time24;
+                
+                        document.getElementById("sunrise").innerHTML = convertTo24H(sunrise);
+                        document.getElementById("sunset").innerHTML = convertTo24H(sunset);
+                        document.getElementById("moonrise").innerHTML = convertTo24H(moonrise);
+                        document.getElementById("moonset").innerHTML = convertTo24H(moonset);
+                    }else if(format == "12-hour"){
+                        let [date, time24] = time.split(" ");
+                        document.getElementById("time").innerHTML = convertTo12H(time24);
+                
+                        document.getElementById("sunrise").innerHTML = sunrise;
+                        document.getElementById("sunset").innerHTML = sunset;
+                        document.getElementById("moonrise").innerHTML = moonrise;
+                        document.getElementById("moonset").innerHTML = moonset;
+                    }
+                
+                    document.getElementById("condition").src = getConditionIcon(condition);
+
+                    let forecastBlock = document.getElementById("forecastBlock");
+                    forecastBlock.innerHTML = "";
+                    const currentTimeStr = data.location.localtime;
+                    const currentTime = new Date(currentTimeStr);
+                    const forecastDays = data.forecast.forecastday;
+                
+                    for (let i = 0; i < forecastDays.length; i++) {
+                        const forecastDay = forecastDays[i];
+                        const forecastHours = forecastDay.hour;
+                      
+                        for (let j = 0; j < forecastHours.length; j++) {
+                          const forecastHour = forecastHours[j];
+                          const forecastTimeStr = forecastHour.time;
+                          const forecastTime = parseTime(forecastTimeStr);
+                      
+                          if (forecastTime > currentTime && forecastTime <= new Date(currentTime.getTime() + 24 * 60 * 60 * 1000)) {
+                            
+                            let element = document.createElement("div");
+                            element.setAttribute("class", "flex center column");
+                            element.style.gap = "7px";
+                
+                            let timeSpan = document.createElement("span");
+                            let content;
+                
+                            if (format == "24-hour") {
+                                let [date, time] = forecastTimeStr.split(" ");
+                                let [hour, minute] = time.split(":");
+                                
+                                content = `${hour}:${minute}`;
+                            } else if (format == "12-hour") {
+                                let [date, time] = forecastTimeStr.split(" ");
+                                content = convertTo12H(time);
+                            }
+                
+                            timeSpan.innerHTML = content;
+                            timeSpan.setAttribute("class", "bold");
+                            timeSpan.style = "white-space: nowrap;"
+                            element.appendChild(timeSpan);
+                
+                            let icon = document.createElement("img");
+                            icon.style.width = "30px";
+                            icon.style.height = "30px";
+                            icon.draggable = false;
+                            icon.src = getConditionIcon(forecastHour.condition.text.trim());
+                            element.appendChild(icon);
+                            let tempSpan = document.createElement("span");
+                            let rainfall = document.createElement("span");
+                            rainfall.style = "white-space: nowrap;"
+                
+                            if(unit == "Metric"){
+                                tempSpan.innerHTML = `${Math.floor(forecastHour.temp_c)}°C`;
+                                element.appendChild(tempSpan);
+                                rainfall.innerHTML = `${parseFloat(forecastHour.precip_mm).toFixed(1).replace(/\.0$/, "")} mm`;
+                                element.appendChild(rainfall);
+                            }else if(unit == "Imperial"){
+                                tempSpan.innerHTML = `${Math.floor(forecastHour.temp_f)}°F`;
+                                element.appendChild(tempSpan);
+                                rainfall.innerHTML = `${parseFloat(forecastHour.precip_in).toFixed(1).replace(/\.0$/, "")} in`;
+                                element.appendChild(rainfall);
+                            }
+                
+                            forecastBlock.appendChild(element);
+                
+                          }
+                        }
+                      }
+
                 }).catch(function(err){
                     console.log("Error getting forecast: " + err.message);
                 });
@@ -159,122 +264,6 @@ function getWeather(){
 
         }
     });
-}
-
-function displayWeather(){
-    document.getElementById("city").innerHTML = city;
-    document.getElementById("country").innerHTML = country;
-
-    if(unit === "Metric"){
-        document.getElementById("temp").innerHTML = tempC + "°C";
-        document.getElementById("feels-like").innerHTML = feelsLikeC + "°";
-        document.getElementById("min").innerHTML = minC + "°";
-        document.getElementById("max").innerHTML = maxC + "°";
-        document.getElementById("speed").innerHTML = windSpdK + " kph";
-        document.getElementById("pressure").innerHTML = pressureMb + " mb";
-        document.getElementById("rainfall").innerHTML = rainFallMM + " mm";
-    }else if(unit === "Imperial"){
-        document.getElementById("temp").innerHTML = tempF + "°F";
-        document.getElementById("feels-like").innerHTML = feelsLikeF + "°";
-        document.getElementById("min").innerHTML = minF + "°";
-        document.getElementById("max").innerHTML = maxF + "°";
-        document.getElementById("speed").innerHTML = windSpdM + " mph";
-        document.getElementById("pressure").innerHTML = pressureIn + " inHg";
-        document.getElementById("rainfall").innerHTML = rainFallIn + " in";
-    }
-
-    document.getElementById("dir").innerHTML = getWindDirection(windDir);
-    document.getElementById("humidity").innerHTML = humidity + "%";
-
-    if(format == "24-hour"){
-        let [date, time24] = time.split(" ");
-        document.getElementById("time").innerHTML = time24;
-
-        document.getElementById("sunrise").innerHTML = convertTo24H(sunrise);
-        document.getElementById("sunset").innerHTML = convertTo24H(sunset);
-        document.getElementById("moonrise").innerHTML = convertTo24H(moonrise);
-        document.getElementById("moonset").innerHTML = convertTo24H(moonset);
-    }else if(format == "12-hour"){
-        let [date, time24] = time.split(" ");
-        document.getElementById("time").innerHTML = convertTo12H(time24);
-
-        document.getElementById("sunrise").innerHTML = sunrise;
-        document.getElementById("sunset").innerHTML = sunset;
-        document.getElementById("moonrise").innerHTML = moonrise;
-        document.getElementById("moonset").innerHTML = moonset;
-    }
-
-    document.getElementById("condition").src = getConditionIcon(condition);
-}
-
-function displayForecast(data){
-
-    let forecastBlock = document.getElementById("forecastBlock");
-    forecastBlock.innerHTML = "";
-    const currentTimeStr = data.location.localtime;
-    const currentTime = new Date(currentTimeStr);
-    const forecastDays = data.forecast.forecastday;
-
-    for (let i = 0; i < forecastDays.length; i++) {
-        const forecastDay = forecastDays[i];
-        const forecastHours = forecastDay.hour;
-      
-        for (let j = 0; j < forecastHours.length; j++) {
-          const forecastHour = forecastHours[j];
-          const forecastTimeStr = forecastHour.time;
-          const forecastTime = parseTime(forecastTimeStr);
-      
-          if (forecastTime > currentTime && forecastTime <= new Date(currentTime.getTime() + 24 * 60 * 60 * 1000)) {
-            
-            let element = document.createElement("div");
-            element.setAttribute("class", "flex center column");
-            element.style.gap = "7px";
-
-            let timeSpan = document.createElement("span");
-            let content;
-
-            if (format == "24-hour") {
-                let [date, time] = forecastTimeStr.split(" ");
-                let [hour, minute] = time.split(":");
-                
-                content = `${hour}:${minute}`;
-            } else if (format == "12-hour") {
-                let [date, time] = forecastTimeStr.split(" ");
-                content = convertTo12H(time);
-            }
-
-            timeSpan.innerHTML = content;
-            timeSpan.setAttribute("class", "bold");
-            timeSpan.style = "white-space: nowrap;"
-            element.appendChild(timeSpan);
-
-            let icon = document.createElement("img");
-            icon.style.width = "30px";
-            icon.style.height = "30px";
-            icon.draggable = false;
-            icon.src = getConditionIcon(forecastHour.condition.text.trim());
-            element.appendChild(icon);
-            let tempSpan = document.createElement("span");
-            let rainfall = document.createElement("span");
-            rainfall.style = "white-space: nowrap;"
-
-            if(unit == "Metric"){
-                tempSpan.innerHTML = `${Math.floor(forecastHour.temp_c)}°C`;
-                element.appendChild(tempSpan);
-                rainfall.innerHTML = `${parseFloat(forecastHour.precip_mm).toFixed(1).replace(/\.0$/, "")} mm`;
-                element.appendChild(rainfall);
-            }else if(unit = "Imperial"){
-                tempSpan.innerHTML = `${Math.floor(forecastHour.temp_f)}°F`;
-                element.appendChild(tempSpan);
-                rainfall.innerHTML = `${parseFloat(forecastHour.precip_in).toFixed(1).replace(/\.0$/, "")} in`;
-                element.appendChild(rainfall);
-            }
-
-            forecastBlock.appendChild(element);
-
-          }
-        }
-      }
 }
 
 function parseTime(timeStr) {
@@ -393,5 +382,3 @@ document.getElementById("apply").addEventListener("click", function() {
 window.oncontextmenu = function (){
     return false;
 }
-
-//NOTE: Yeah, yeah, I know my code could be shorter, but I"ll fix it, I guess.
