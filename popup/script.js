@@ -382,3 +382,4 @@ document.getElementById("apply").addEventListener("click", function() {
 window.oncontextmenu = function (){
     return false;
 }
+
