@@ -16,6 +16,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 
     background-color: #323232;
     color: #D4D4D4;
@@ -36,10 +37,6 @@ body{
     justify-content: center;
 }
 
-.space-between{
-    justify-content: space-between;
-}
-
 .column{
     flex-direction: column;
 }
@@ -56,19 +53,17 @@ span{
     text-align: center;
 }
 
-.QR{
-    width: 300px;
-    height: 300px;
+a{
+    color: #7664a0;
+    font-weight: bold;
 }
 
-.address{
-    width: fit-content;
-    margin-top: 5px;
-    font-size: 15px;
+::selection{
+    background: rgba(179, 212, 252, 0.5); 
+    color: #FFFFFF;
 }
 
-.panel{
-    background-color: #5E4B8A;
-    border-radius: 20px;
-    padding: 15px;
+::selection{
+    background-color: #B39DDB;
+    color: #1C1C1C;
 }

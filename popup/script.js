@@ -362,7 +362,7 @@ document.getElementById("settings").addEventListener("click", function() {
 });
 
 document.getElementById("donate").addEventListener("click", function() {
-    chrome.tabs.create({ url: "../tabs/donate.html" });
+    chrome.tabs.create({ url: "../tabs/donate/donate.html" });
 });
 
 document.getElementById("done").addEventListener("click", function() {
