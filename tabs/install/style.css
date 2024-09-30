@@ -54,13 +54,9 @@ span{
 }
 
 a{
-    color: #7664a0;
+    color: #D4BFFF;
     font-weight: bold;
-}
-
-::selection{
-    background: rgba(179, 212, 252, 0.5); 
-    color: #FFFFFF;
+    text-decoration: none;
 }
 
 ::selection{
