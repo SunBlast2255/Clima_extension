@@ -11,7 +11,7 @@ body {
     font-style: normal;
     
     width: 575px;
-    height: 525px;
+    height: 470px;
 }
 
 header, .modal-header{
@@ -161,22 +161,6 @@ a, span, p, h1, h2, h3, h4, h5, h6{
     width:535px;
 }
 
-.alert-block{
-    width: 535px;
-    height: 50px;
-
-    background-color: #5E4B8A;
-    color: #FFFFFF;
-
-    border-radius: 5px;
-    padding: 5px;
-
-    font-weight: bold;
-    font-size: 12px;
-
-    overflow: auto;
-}
-
 .astro-block{
     display: flex;
     align-items: safe center;
@@ -213,7 +197,7 @@ a, span, p, h1, h2, h3, h4, h5, h6{
 
 .modal{
     width: 535px;
-    height: 525px;
+    height: 470px;
 
     position: absolute;
     top: 0;
