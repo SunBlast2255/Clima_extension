@@ -17,7 +17,7 @@ body {
 header, .modal-header{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: safe center;
 
     width: 575px;
     height: 10%;
@@ -27,8 +27,8 @@ header, .modal-header{
 
 .header-item{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: safe center;
+    justify-content: safe center;
 
     gap:5px;
     margin: 5px;
@@ -36,7 +36,7 @@ header, .modal-header{
 
 main, .modal-main{
     display: flex;
-    align-items: center;
+    align-items: safe center;
     flex-direction: column;
 
     width: 575px;
@@ -59,8 +59,8 @@ main, .modal-main{
 }
 
 .center{
-    align-items: center;
-    justify-content: center;
+    align-items: safe center;
+    justify-content: safe center;
 }
 
 img{
@@ -120,7 +120,7 @@ a, span, p, h1, h2, h3, h4, h5, h6{
 
 .main-info{
     display: flex;
-    align-items: center;
+    align-items: safe center;
     justify-content: space-between;
 
     width: 575px;
@@ -130,7 +130,7 @@ a, span, p, h1, h2, h3, h4, h5, h6{
 
 .adv-info{
     display: flex;
-    align-items: center;
+    align-items: safe center;
     justify-content: space-between;
 
     width: 535px;
@@ -154,7 +154,7 @@ a, span, p, h1, h2, h3, h4, h5, h6{
 
 .astro{
     display: flex;
-    align-items: center;
+    align-items: safe center;
     justify-content: space-between;
     gap: 5px;
 
@@ -172,12 +172,14 @@ a, span, p, h1, h2, h3, h4, h5, h6{
     padding: 5px;
 
     font-weight: bold;
+    font-size: 12px;
+
     overflow: auto;
 }
 
 .astro-block{
     display: flex;
-    align-items: center;
+    align-items: safe center;
     justify-content: space-between;
 
     width:50%;
@@ -196,8 +198,8 @@ a, span, p, h1, h2, h3, h4, h5, h6{
 .small-block{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: safe center;
+    justify-content: safe center;
 
     background-color: #5E4B8A;
     color: #FFFFFF;
@@ -245,8 +247,8 @@ button{
 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: safe center;
+    justify-content: safe center;
 
     margin-bottom: 5px;
     font-weight: bold;

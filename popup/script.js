@@ -145,9 +145,17 @@ function getWeather(){
                     moonrise = data.forecast.forecastday[0].astro.moonrise;
                     moonset = data.forecast.forecastday[0].astro.moonset;
 
+                    /*
+                     The warning description is more detailed than just the header. 
+                     At the same time they can duplicate each other, and if they are displayed together, you get a very long and not beautiful text. 
+                     Also the description can sometimes be missing, so otherwise we display the header.
+                     */
+
                     alertText = data.alerts.alert[0];
-                    if(alertText){
-                        document.getElementById("alert").innerHTML = alertText.headline;
+                    if(alertText.desc){
+                        document.getElementById("alert").innerHTML = alertText.desc;
+                    }else if(alertText.headline){
+                        document.getElementById("alert").innerHTML = alertText.headline; 
                     }else{
                         document.getElementById("alert").innerHTML = "Alerts will appear here. They're not here yet.";
                     }
