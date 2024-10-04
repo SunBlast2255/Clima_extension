@@ -34,6 +34,8 @@ let sunset;
 let moonrise;
 let moonset;
 
+let alertText;
+
 const conditionIconMap = {
     "Sunny": "../img/weather/sun.png",
     "Clear": "../img/weather/moon.png",
@@ -100,7 +102,7 @@ function getWeather(){
 
             const key = "b91ec524df5747a3bed133352240605";
             const url = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`;
-            const urlForecast = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=2&aqi=no&alerts=no`;
+            const urlForecast = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=2&aqi=yes&alerts=yes`;
 
             fetch(url).then(function(response){
                 return response.json();
@@ -142,6 +144,13 @@ function getWeather(){
                     sunset = data.forecast.forecastday[0].astro.sunset;
                     moonrise = data.forecast.forecastday[0].astro.moonrise;
                     moonset = data.forecast.forecastday[0].astro.moonset;
+
+                    alertText = data.alerts.alert[0];
+                    if(alertText){
+                        document.getElementById("alert").innerHTML = alertText.headline;
+                    }else{
+                        document.getElementById("alert").innerHTML = "Alerts will appear here. They're not here yet.";
+                    }
 
                     document.getElementById("city").innerHTML = city;
                     document.getElementById("country").innerHTML = country;
