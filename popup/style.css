@@ -206,6 +206,11 @@ a, span, p, h1, h2, h3, h4, h5, h6{
     display: none;
 }
 
+.settings-item{
+    width: 165px;
+    height: fit-content;
+}
+
 input[type="text"], select{
     width: 100px;
 }
